@@ -43,7 +43,11 @@ Note: There is no requirement for emails of an organization to use the same doma
 ## Using the system
 
 
-TODO: Complete
+1) Upload a file using the UI: https://shopify-backend-summer-2021.web.app
+   - Note: employee2 has files pre-uploaded
+
+2) Use endpoints to share images: https://app.swaggerhub.com/apis/dakotamcinnis7/shopify-backend_challenge/1.0
+   - You should have the header `authorization` (lower-case) with the value of a user's token
 
 
 ## Security Measures
@@ -62,7 +66,6 @@ TODO: Complete
 #### Technical Implementation
 
 - See `firestore.rules`
-- See `storage.rules`
 - Notice that any APIs (which are implemented by interacting with data in "admin" mode) do not expose undesired privileges to the incorrect users.
 
 
@@ -79,8 +82,8 @@ TODO: Complete
 
 ## Improvements
 
+- Make sure unauthorized requests return an error code, rather than hanging
 - There are ToDos in the "./functions" folder related to HTTPs Endpoints I had planned to make
-  - Namely, this relates to organization management
 - The roles of owner, admin & member should have been handled within the Authentication product
    - this makes writing Firestore rules much less complicated
   

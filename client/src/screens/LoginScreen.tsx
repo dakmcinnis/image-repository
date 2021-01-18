@@ -1,21 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
+import {
+    Redirect
+} from "react-router-dom";
 import styled from 'styled-components';
+import firebase from 'firebase';
 import Text from '../components/Text';
 import TextInput from '../components/TextInput';
 import Button from '../components/Button';
 import Color from '../styles/color';
-import { auth } from '../app/firebase';
 
 const LoginScreen = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isRedirect, setRedirect] = useState(false);
 
     const onSignIn = useCallback(() => {
-        auth.signInWithEmailAndPassword(email, password).then(
+        firebase.auth().signInWithEmailAndPassword(email, password).then(
             () => {
                 setEmail('');
                 setPassword('');
+                setRedirect(true);
             }
         );
 
@@ -23,6 +28,7 @@ const LoginScreen = () => {
 
     return (
         <Wrapper>
+            {isRedirect && <Redirect to="/home" />}
             <div>
                 <Text fontColor={Color.NEUTRAL.BLACK} size="HB_DISPLAY_2">Welcome back to the</Text>
                 <Text fontColor={Color.NEUTRAL.BLACK} size="HB_DISPLAY_2">Image Repository!</Text>
