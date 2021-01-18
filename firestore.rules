@@ -2,7 +2,50 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read, write: if false;
+      match /users/{user} {
+        function isSameUser() {
+        	let authId = request.auth.uid;
+        	let resourceId = request.resource.id;
+          return authId == resourceId;
+        }
+        allow read,write: if isSameUser();
+        match /users/{user}/uploads/{image} {
+          allow read, write: if isSameUser();
+        }
+      }
+      match /organizations/{organization} {
+        function isOwner() {
+          let authId = request.auth.uid;
+          let ownerId = request.resource.data.ownerId.split("");
+          return authId == ownerId;
+        }
+        function isAdmin() {
+        	// TODO: make sure admins is treated as an array
+          // let authId = request.auth.uid;
+          // let admins = request.resource.data.admins;
+          // return admins.includes(authId);
+          return true;
+        }
+        function isMember() {
+        	// TODO: implement
+          return true;
+        }
+        match /pending/{image} {
+        	function isImageCreator() {
+          	let uid = request.auth.uid;
+            let creatorId = request.resource.data.creatorId;
+            return uid == creatorId;
+          }
+          allow read: if isOwner() || isAdmin() || isMember();
+          allow write: if isOwner() || isAdmin() || isImageCreator();
+        }
+        match /public/{image} {
+          allow read: if true;
+          allow write: if isOwner() || isAdmin();
+        }
+        allow read: if isOwner() || isAdmin();
+        allow write: if isOwner();
+      }
     }
   }
 }
