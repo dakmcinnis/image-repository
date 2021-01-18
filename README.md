@@ -77,8 +77,10 @@ TODO: Complete
   - Cloud Functions (Backend Triggers + HTTP Requests)
 
 
-## Other Notes
+## Improvements
 
 - There are ToDos in the "./functions" folder related to HTTPs Endpoints I had planned to make
   - Namely, this relates to organization management
+- The roles of owner, admin & member should have been handled within the Authentication product
+   - this makes writing Firestore rules much less complicated
   
