@@ -46,7 +46,7 @@ Note: There is no requirement for emails of an organization to use the same doma
 1) Upload a file using the UI: https://shopify-backend-summer-2021.web.app
    - Note: employee2 has files pre-uploaded
 
-2) Use endpoints to share images: https://app.swaggerhub.com/apis/dakotamcinnis7/shopify-backend_challenge/1.0
+2) Use endpoints to share images: https://app.swaggerhub.com/apis/dakotamcinnis7/MediaManagerShopify/1.0
    - You should have the header `authorization` (lower-case) with the value of a user's token
 
 
